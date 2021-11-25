@@ -1,4 +1,5 @@
 using LinearAlgebra
+using Statistics
 
 # 3. Create a null vector of size 10
 
@@ -57,3 +58,27 @@ Z
 Z = rand(Int, (10, 10))
 minimum(Z)
 maximum(Z)
+
+# Create a random vector of size 30 and find the mean value
+Z = Vector(rand(Int, 10))
+sum(Z) / length(Z)
+
+# Create a 2d array with 1 on the border and 0 inside
+Z = ones(10, 10)
+Z[2:end-1, 2:end-1] .= 0
+Z
+
+# Okay there are a few bits here that we have to address:
+# Right of the bat Julia uses 1-based indexing as you probably already know
+# The end keyword represents the end of a dimension in Julia, It provides a more explicit way to specify indexes.
+# Finally the . operator is used for broadcasting. Julia does not automatically write 0 everywhere if you use just the assignment operator. This can often trip people and instead the . operator provides an explicit broadcasting method
+
+# How to add a border (filled with 0's) around an existing array?
+len_mat = 9
+Z = ones(Int8, len_mat, len_mat)
+borderZ = zeros(Int8, len_mat + 2, len_mat + 2)
+borderZ[2:end-1, 2:end-1] = Z
+borderZ
+# Ok so this is very much an extremely hacky way to do this but I could find a good way to go about this.
+# If you are using this in a context of images processing then Image Filtering has a way described here https://discourse.julialang.org/t/is-there-any-padding-function-available-to-pad-a-matrix-or-array/8521/3
+# PaddedViews.jl might be an option too if you are using this a lot
