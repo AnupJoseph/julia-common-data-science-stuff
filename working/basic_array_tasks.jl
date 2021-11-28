@@ -79,6 +79,22 @@ Z = ones(Int8, len_mat, len_mat)
 borderZ = zeros(Int8, len_mat + 2, len_mat + 2)
 borderZ[2:end-1, 2:end-1] = Z
 borderZ
-# Ok so this is very much an extremely hacky way to do this but I could find a good way to go about this.
+# Ok so this is very much an extremely hacky way to do this but I couldn't find a good way to go about this.
 # If you are using this in a context of images processing then Image Filtering has a way described here https://discourse.julialang.org/t/is-there-any-padding-function-available-to-pad-a-matrix-or-array/8521/3
 # PaddedViews.jl might be an option too if you are using this a lot
+
+
+# Create a 5x5 matrix with values 1,2,3,4 just below the diagonal 
+diagonal = [1, 2, 3, 4]
+ld = Bidiagonal(zeros(5), diagonal, :L)
+# : in this context is an identifier essentially used to identify an entity. Here if you use :U instead, that uses a different implementation which would place the diagonal vector on top of zeros instead
+
+
+# Consider a (6,7,8) shape array, what is the index (x,y,z) of the 100th element?
+arr = rand(Int8, (6, 7, 8))
+c_x = CartesianIndices(arr)
+arr[c_x[100]]
+
+# Create a checkerboard 8x8 matrix using the tile function
+base_mat = [[1, 0], [0, 1]]
+repeat(base_mat,4,4)
