@@ -97,4 +97,19 @@ arr[c_x[100]]
 
 # Create a checkerboard 8x8 matrix using the tile function
 base_mat = [[1, 0], [0, 1]]
-repeat(base_mat,4,4)
+repeat(base_mat, 4, 4)
+
+# Normalize a 5x5 random matrix
+Z = rand((5, 5))
+normalize!(Z)
+
+# Multiply a 5x3 matrix by a 3x2 matrix (real matrix product)
+Z₁ = ones(5, 3)
+Z₂ = ones(3, 2)
+Z₁.Z₂
+# Yeah bit of a show off but that's just objectively cool
+
+# Given a 1D array, negate all elements which are between 3 and 8, in place.
+Z = [1:11;]
+replace!(x -> (3 .<= x .<= 8) ? -x : x, Z)
+
