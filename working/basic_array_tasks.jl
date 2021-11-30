@@ -1,8 +1,8 @@
 using LinearAlgebra
 using Statistics
+using Dates
 
 # 3. Create a null vector of size 10
-
 Z = zeros(Int8, 10)
 Z
 
@@ -113,3 +113,20 @@ Z₁.Z₂
 Z = [1:11;]
 replace!(x -> (3 .<= x .<= 8) ? -x : x, Z)
 
+# How to round away from zero a float array ?
+Z = [-10:10;]
+replace!(x -> x > 0 ? ceil(x) : floor(x), Z)
+
+# How to find common values between two arrays?
+Z₁ = rand(1:10, 10)
+Z₂ = rand(1:10, 10)
+intersect(Z₁, Z₂)
+
+# How to get the dates of yesterday, today and tomorrow?
+# We need to use the Dates Package here
+today = Dates.today()
+print("$(today)\n")
+yesterday = today - Dates.Day(1)
+print("$(yesterday)\n")
+tomorrow = today + Dates.Day(1)
+print("$(tomorrow)\n")
