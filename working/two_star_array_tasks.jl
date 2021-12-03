@@ -29,7 +29,6 @@ A = fill([0:4;], 5)
 A = [0 1 2 3 4]
 repeat(A, 5)
 
-
 # This is a more generic solution but slightly more involved
 repeat(reshape([0:4;], 1, :), 5)
 # Lets break down as so 
@@ -37,3 +36,13 @@ repeat(reshape([0:4;], 1, :), 5)
 # * reshape([0:4;], 1, :) converts to 1x5 row vector from the column vector
 # * The repeat function basically copies it five times
 
+
+# Create a vector of size 10 with values ranging from 0 to 1, both excluded
+Z = [rand(Float64) for i in range(1:10)]
+# Most of the time this will work. I don't really see the need to actually exclude 0 as well from this code but if you do, then
+Z = [prevfloat(1.0) * (1 - rand()) for i in range(1:10)]
+# Again its pretty extremely unlikely you'd actually need it but if you do, then you please read this discussion as well before going in https://discourse.julialang.org/t/how-to-create-a-random-uniform-distribution-between-but-excluding-0-and-10
+
+# Create a random vector of size 10 and sort it
+Z = rand(Int,10)
+sort!(Z)

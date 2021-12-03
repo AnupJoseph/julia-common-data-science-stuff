@@ -130,3 +130,8 @@ yesterday = today - Dates.Day(1)
 print("$(yesterday)\n")
 tomorrow = today + Dates.Day(1)
 print("$(tomorrow)\n")
+
+# Consider a generator function that generates 10 integers and use it to build an array
+int_gen = (x for x = 1:10)
+collect(int_gen)
+# I am just going to use a generator expression here instead
