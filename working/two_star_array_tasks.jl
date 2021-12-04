@@ -44,5 +44,33 @@ Z = [prevfloat(1.0) * (1 - rand()) for i in range(1:10)]
 # Again its pretty extremely unlikely you'd actually need it but if you do, then you please read this discussion as well before going in https://discourse.julialang.org/t/how-to-create-a-random-uniform-distribution-between-but-excluding-0-and-10
 
 # Create a random vector of size 10 and sort it
-Z = rand(Int,10)
+Z = rand(Int, 10)
 sort!(Z)
+
+# Consider two random array A and B, check if they are equal
+A = rand(1:20, 10)
+B = rand(1:20, 10)
+
+# To check if the arrays are completely equal
+A == B
+
+# To check if the elements in the arrays are equal
+A .== B
+
+# Consider a random 10x2 matrix representing cartesian coordinates, convert them to polar coordinates
+struct cartesian_point
+    X::Float32
+    Y::Float32
+end
+
+points = [cartesian_point(rand(), rand()) for _ = 1:10]
+radians(x, y) = sqrt(x^2 + y^2)
+theta(x, y) = atan(y, x)
+
+Xpoints = [point.X for point in points]
+Ypoints = [point.Y for point in points]
+
+radians.(Xpoints, Ypoints)
+theta.(Xpoints, Ypoints)
+# Yes, I am over engineering this and a bad job at it at the same time. Struct is one of the very core ideas in Julia and I have been kind of skirting about it. A Dict or even an array of arrays would do just fine. I might refactor this later but I am sticking with this for the moment
+
