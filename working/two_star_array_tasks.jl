@@ -72,5 +72,21 @@ Ypoints = [point.Y for point in points]
 
 radians.(Xpoints, Ypoints)
 theta.(Xpoints, Ypoints)
-# Yes, I am over engineering this and a bad job at it at the same time. Struct is one of the very core ideas in Julia and I have been kind of skirting about it. A Dict or even an array of arrays would do just fine. I might refactor this later but I am sticking with this for the moment
+# Yes, I am over engineering this and doing a bad job at it at the same time. Struct is one of the very core ideas in Julia and I have been kind of skirting about it. A Dict or even an array of arrays would do just fine. I might refactor this later but I am sticking with this for the moment
 
+# Create random vector of size 10 and replace the maximum value by 0
+Z = rand(Int8, 10)
+Z[argmax(Z)]
+
+# Create a structured array with x and y coordinates covering the [0,1]x[0,1] area
+Z = (X = collect(LinRange(0, 1, 5)), Y = collect(LinRange(0, 1, 5)))
+
+# Given two arrays, X and Y, construct the Cauchy matrix C (Cᵢⱼ = 1 ÷ (xᵢ - yⱼ))
+X = rand(Int8, 10)
+Y = rand(Int8, 10)
+
+C = [[(1 ÷ (i - j)) for i in X] for j in Y]
+det(C)
+
+f(i, j) = 1 ÷ (i - j)
+C = (f(x, y) for x in X, y in Y)
