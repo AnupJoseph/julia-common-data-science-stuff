@@ -1,6 +1,7 @@
 using LinearAlgebra
 using Statistics
 using Dates
+using Distances
 
 # How to get all the dates corresponding to the month of July 2016?
 dr = Date("2016-07-01"):Day(1):Date("2016-07-31")
@@ -90,3 +91,20 @@ det(C)
 
 f(i, j) = 1 ÷ (i - j)
 C = (f(x, y) for x in X, y in Y)
+det(collect(C))
+
+# How to find the closest value (to a given scalar) in a vector?
+A = rand(Int8, 10)
+
+findnearest(A, x) = argmin(abs.(A .- x))
+A[findnearest(A, 0)]
+
+# Consider a random vector with shape (100,2) representing coordinates, find point by point distances
+A = rand(Int8, (10, 2))
+B = rand(Int8, (10, 2))
+pairwise(Euclidean(), A, B, dims = 1)
+# I am using the distances package here as it feels more Julian. 
+
+# How to convert a float (32 bits) array into an integer (32 bits) in place
+A = rand(Float32, 10)
+trunc.(Int, A)
