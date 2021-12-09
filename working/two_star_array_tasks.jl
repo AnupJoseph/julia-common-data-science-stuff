@@ -2,6 +2,8 @@ using LinearAlgebra
 using Statistics
 using Dates
 using Distances
+using DelimitedFiles
+using Distributions
 
 # How to get all the dates corresponding to the month of July 2016?
 dr = Date("2016-07-01"):Day(1):Date("2016-07-31")
@@ -108,3 +110,39 @@ pairwise(Euclidean(), A, B, dims = 1)
 # How to convert a float (32 bits) array into an integer (32 bits) in place
 A = rand(Float32, 10)
 trunc.(Int, A)
+
+# How to read the following file?
+"""
+1, 2, 3, 4, 5
+6,  ,  , 7, 8
+ ,  , 9,10,11
+"""
+data = readdlm("num_fle.txt", ",")
+data
+
+# What is the equivalent of enumerate for Julia arrays?
+# Enumerate is just enumerate in Julia
+Z = [1:9;]
+squared = [i^2 for (i, num) in enumerate(Z)]
+
+# Generate a generic 2D Gaussian-like array
+σ, μ = 1.0, 0.0
+X, Y = LinRange(-1, 1, 100), LinRange(-1, 1, 100)
+G(x, y, μ, σ) = exp(-(x - μ) .^ 2 / (2.0 * σ^2) - (y - μ) .^ 2 / (2.0 * σ^2))
+mat = [G(x, y, μ, σ) for x in X, y in Y]
+
+# How to randomly place p elements in a 2D array?
+n, p = 10, 3
+Z = zeros(Int8, n, n)
+Z[rand(1:n*n, p)] .= 1
+# So this is kind of a hack but I think its okay.
+
+# Subtract the mean of each row of a matrix
+Z = rand(1:100, 10, 10)
+remove_mean(A) = A .- mean(A)
+mapslices(remove_mean, Z, dims = 1)
+
+# How to sort an array by the nth column?
+Z = rand(1:100, 10, 10)
+nᵗʰ = 3
+sort(Z, by = Z[nᵗʰ])
