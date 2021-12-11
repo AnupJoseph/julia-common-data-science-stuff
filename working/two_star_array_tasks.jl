@@ -144,5 +144,12 @@ mapslices(remove_mean, Z, dims = 1)
 
 # How to sort an array by the nth column?
 Z = rand(1:100, 10, 10)
-nᵗʰ = 3
-sort(Z, by = Z[nᵗʰ])
+n = 3
+sortslices(Z, dims = 1, by = x -> x[n])
+
+# How to tell if a given 2D array has null columns?
+# Julia allows a whole host of things to define what you specifically mean by null, Here I am going to choose that easy way out and pretend to use see zero instead, i.e. filter rows which are zero
+Z = ones(10, 10)
+Z[2] .= 0
+filter(x -> any(!iszero, x), Z)
+
