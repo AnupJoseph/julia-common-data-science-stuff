@@ -48,3 +48,9 @@ sum(chipo.quantity .* chipo.item_price)
 order_counts = nrow(combine(groupby(chipo, :order_id), nrow => :count_per_order))
 
 # Step 16. What is the average revenue amount per order?
+chipo[!, :revenue] = chipo.item_price .* chipo.quantity
+grouped_by_order_id = combine(groupby(chipo, :order_id),:revenue=>sum)
+mean(grouped_by_order_id.revenue_sum)
+
+# Step 17. How many different items are sold?
+num_items = nrow(combine(groupby(chipo, :item_name), nrow => :count_item_name)
