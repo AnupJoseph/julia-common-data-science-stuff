@@ -19,9 +19,13 @@ continents = @pipe drinks |> groupby(_, :continent) |> combine(_, :beer_servings
 
 # Step 6. Print the mean alcohol consumption per continent for every column
 continents = @pipe drinks |> groupby(_, :continent) |> combine(_, valuecols(_)[2:end] .=> mean)
+@pipe drinks |> groupby(_, :continent) |> combine(_, names(_, Number) .=> mean)
+
 
 # Step 7. Print the median alcohol consumption per continent for every column
 @pipe drinks |> groupby(_, :continent) |> combine(_, valuecols(_)[2:end] .=> median)
+@pipe drinks |> groupby(_, :continent) |> combine(_, names(_, Number) .=> median)
 
 # Step 8. Print the mean, min and max values for spirit consumption.
-@pipe drinks |> groupby(_, :continent) |> combine(_, :spirit_servings => (mean, min, max))
+compute_mean_max_min(x) = mean(x), minimum(x), maximum(x)
+@pipe drinks |> groupby(_, :continent) |> combine(_, :spirit_servings => compute_mean_max_min)
