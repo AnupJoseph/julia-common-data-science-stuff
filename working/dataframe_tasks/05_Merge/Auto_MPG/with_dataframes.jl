@@ -33,3 +33,4 @@ owners = [ceil(i) for i in range(15000, 73000, length = 398)]
 # Step 8. Add the column owners to cars
 cars1.owners = owners
 show(cars1,allcols=true)
+
